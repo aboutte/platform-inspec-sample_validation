@@ -37,10 +37,8 @@ end
 
 services = YAML.load_file(File.join(File.dirname(__FILE__), '../files/services.yml'))
 services["services"].each do |s|
-  context “Service validation” do 
-    describe command('sudo systemctl show '+s+' --no-page | grep ActiveState | cut -d "=" -f2') do
-      its('stdout') { should eq "active\n" }
-    end
+  describe command('sudo systemctl show '+s+' --no-page | grep ActiveState | cut -d "=" -f2') do
+    its('stdout') { should eq "active\n" }
   end
   describe command('sudo systemctl show '+s+' --no-page | grep LoadState | cut -d "=" -f2') do
     its('stdout') { should eq "loaded\n" }
