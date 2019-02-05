@@ -1,10 +1,7 @@
 #!/bin/sh
 
 
-# unzip vendor.zip
-# if [[ ! -e .bundle ]]; then
-#             mkdir .bundle
-# fi
+unzip vendor.zip
 
 
 #This block is used for machine details from environment variable
@@ -25,7 +22,7 @@ do
         export SPEC_PASSWORD=${ary[3]}
         export SPEC_HOST_AUTHENTICATION="$SPEC_AUTHENTICATION"
         export SPEC_HOST_NAME="$SPEC_IP"
-        # export HOST_ROLE="$ROLE"
+        export HOST_ROLE="$ROLE"
 
             # export ROLE=${role}
             # TITLE1=$(echo "${ROLE}" | sed "s/_/${replace}/")
@@ -40,7 +37,7 @@ do
             chmod 400 key/${SPEC_USER}_${SPEC_IP}.key
             fi
 
-            bundle install && inspec exec . -t ssh://${SPEC_USER}@${SPEC_IP} --key-files key/${SPEC_USER}_${SPEC_IP}.key --format json-rspec >> reports/results.json 
+            bundle install --local && inspec exec . -t ssh://${SPEC_USER}@${SPEC_IP} --key-files key/${SPEC_USER}_${SPEC_IP}.key --format json-rspec >> reports/results.json 
             inspec exec . -t ssh://${SPEC_USER}@${SPEC_IP} --key-files key/${SPEC_USER}_${SPEC_IP}.key --format html >> reports/results.html 
             testExit=$?
             echo "-------------"
